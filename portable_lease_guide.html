@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上海租房 7,000 份案例大数据拆解 — 手机便携避坑指南卡</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- html2canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    
+    /* 严格保证 540x720 像素小红书 3:4 黄金竖屏比例，防挤压，防截断 */
+    .xhs-card-canvas {
+      width: 540px;
+      height: 720px;
+      min-width: 540px;
+      min-height: 720px;
+      max-width: 540px;
+      max-height: 720px;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* 细腻工程网格纹理 */
+    .bg-grid-dark {
+      background-image: linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .bg-grid-light {
+      background-image: linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-300">
+
+  <!-- 顶部控制条 (Linear/Vercel 工业质感) -->
+  <header class="sticky top-0 z-50 bg-zinc-950/95 backdrop-blur border-b border-zinc-800 px-6 py-3.5 flex items-center justify-between shadow-xs">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center text-emerald-400">
+        <i data-lucide="scale" class="w-4 h-4"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-sm tracking-tight text-white">上海租房履约避坑便携手册</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 tabular-nums">7,000 篇案例大数据</span>
+        </div>
+        <p class="text-xs text-zinc-400 font-mono">手机便携长图版 (1080×1440px 视网膜超清) · 签约交接随身防坑参考</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <div id="statusBadge" class="hidden text-xs font-mono px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-300">
+        <span id="statusText">准备就绪</span>
+      </div>
+      <button onclick="downloadAllCards()" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs flex items-center gap-2 transition-transform active:scale-95 cursor-pointer shadow-sm">
+        <i data-lucide="download" class="w-4 h-4"></i>
+        <span>一键保存 5 张手机超清卡片</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 视觉主展示区：卡片单列居中，不挤压，呼吸感拉满 -->
+  <main class="flex-1 py-10 px-4 flex flex-col items-center gap-12 max-w-5xl mx-auto">
+
+    <!-- ========================================== -->
+    <!-- CARD 01: 封面海报 (深色模式 #09090B 极客大字报) -->
+    <!-- ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-between w-[540px] px-2 mb-2 text-xs font-mono text-zinc-400">
+        <div class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <i data-lucide="image" class="w-3.5 h-3.5"></i>
+          <span>CARD 01 // 避坑大盘总览 (手机高清版)</span>
+        </div>
+        <button onclick="downloadSingleCard('card-01', '01_封面海报_看完7000份判决再吵架.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> 保存此卡
+        </button>
+      </div>
+
+      <div id="card-01" class="xhs-card-canvas bg-[#09090B] text-zinc-100 border border-zinc-800 rounded-2xl p-7 shadow-2xl">
+        <!-- 背景微光网格 -->
+        <div class="bg-grid-dark absolute inset-0 pointer-events-none opacity-40"></div>
+
+        <!-- 顶部元信息条 -->
+        <div class="relative z-10 flex items-center justify-between border-b border-zinc-800/80 pb-3">
+          <div class="flex items-center gap-2 text-zinc-400 font-mono text-[11px] tracking-wider truncate mr-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+            <span>SHANGHAI RENTAL MARKET CORPUS // 2020-2026</span>
+          </div>
+          <div class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2.5 py-0.5 rounded-full font-mono tabular-nums font-semibold flex items-center gap-1 shrink-0 whitespace-nowrap">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            <span>100% 真实公开数据</span>
+          </div>
+        </div>
+
+        <!-- 核心视觉冲击区 (大字报，大行距，呼吸感强) -->
+        <div class="relative z-10 my-auto py-2">
+          <!-- 标签胶囊 -->
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono mb-4">
+            <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>上海市 16 区租房履约公开大数据</span>
+          </div>
+
+          <!-- 超大数字视觉锚点 -->
+          <div class="flex items-baseline gap-3 mb-4">
+            <span class="text-7xl font-black font-mono tracking-tighter text-white tabular-nums">7,000</span>
+            <div class="flex flex-col">
+              <span class="text-sm font-mono font-bold text-emerald-400 tracking-wider">CASES ANALYZED</span>
+              <span class="text-xs text-zinc-400 font-sans">篇纯住宅一审文书全量拆解</span>
+            </div>
+          </div>
+
+          <!-- 核心大标题 (字号放大，层级拉满，直击租客痛点) -->
+          <div class="space-y-1.5 mb-5">
+            <h1 class="text-3xl font-black tracking-tight text-white leading-tight">
+              退房被扣押金？
+            </h1>
+            <h1 class="text-3xl font-black tracking-tight text-white leading-tight">
+              提前退租赔多少？
+            </h1>
+            <h1 class="text-3xl font-black tracking-tight text-emerald-400 leading-tight">
+              看完 7,000 份公开案例大数据
+            </h1>
+          </div>
+
+          <!-- 副标说明 -->
+          <p class="text-sm text-zinc-400 leading-relaxed font-sans font-normal pr-2">
+            拒绝玄学经验。用上海大盘数据规律，拆解提灯定损与违约金的大盘数据规律。
+          </p>
+        </div>
+
+        <!-- 底部 Bento 3 格数据预览 (大字号，高对比) -->
+        <div class="relative z-10">
+          <div class="grid grid-cols-3 gap-3 mb-4">
+            <!-- 格 1 -->
+            <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+              <span class="text-xs text-zinc-400 mb-1 flex items-center gap-1 font-sans">
+                <i data-lucide="map-pin" class="w-3 h-3 text-zinc-500"></i> 浦东覆盖样本
+              </span>
+              <span class="text-2xl font-black font-mono text-white tabular-nums">1,644 <span class="text-xs font-normal text-zinc-400">篇</span></span>
+              <span class="text-[11px] text-zinc-500 font-mono mt-0.5">占全库 23.5% 第一</span>
+            </div>
+
+            <!-- 格 2 -->
+            <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+              <span class="text-xs text-zinc-400 mb-1 flex items-center gap-1 font-sans">
+                <i data-lucide="trending-down" class="w-3 h-3 text-amber-400"></i> 平均判赔打折
+              </span>
+              <span class="text-2xl font-black font-mono text-amber-400 tabular-nums">66.2%</span>
+              <span class="text-[11px] text-zinc-500 font-mono mt-0.5">部分支持案仅 49%</span>
+            </div>
+
+            <!-- 格 3 -->
+            <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-3 flex flex-col justify-between">
+              <span class="text-xs text-zinc-400 mb-1 flex items-center gap-1 font-sans">
+                <i data-lucide="check-circle" class="w-3 h-3 text-emerald-400"></i> 押金诉求支持率
+              </span>
+              <span class="text-2xl font-black font-mono text-emerald-400 tabular-nums">96.0%</span>
+              <span class="text-[11px] text-zinc-500 font-mono mt-0.5">无凭证扣款难成立</span>
+            </div>
+          </div>
+
+          <!-- 卡片底栏标识 -->
+          <div class="flex items-center justify-between pt-3 border-t border-zinc-800/80 text-xs font-mono text-zinc-500">
+            <span class="text-zinc-400 font-bold">01 / 05</span>
+            <span class="tracking-widest">SHANGHAI LEASE DATA LAB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- CARD 02: 真实大数据底牌 (浅色模式 #FAFAFA 工业级对比卡) -->
+    <!-- ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-between w-[540px] px-2 mb-2 text-xs font-mono text-zinc-400">
+        <div class="flex items-center gap-1.5 text-zinc-300 font-semibold">
+          <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
+          <span>CARD 02 // 真实大数据底牌</span>
+        </div>
+        <button onclick="downloadSingleCard('card-02', '02_四大高频纠纷支持率与金额调减.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
+        </button>
+      </div>
+
+      <div id="card-02" class="xhs-card-canvas bg-[#FAFAFA] text-zinc-900 border border-zinc-300 rounded-2xl p-6 shadow-2xl">
+        <!-- 顶部标题区 -->
+        <div class="border-b border-zinc-200 pb-3">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 font-medium">
+              <i data-lucide="scale" class="w-3.5 h-3.5 text-zinc-700"></i>
+              <span>RENTAL DATA INTELLIGENCE</span>
+            </div>
+            <span class="text-xs font-mono text-zinc-600 bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200 tabular-nums">样本总量 N=6,995</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-zinc-950">
+            上海租房 4 大高频纠纷：大盘支持率与金额调减率
+          </h2>
+        </div>
+
+        <!-- 4 大高频场景：大字横条 Bento，字号放大，告别拥挤 -->
+        <div class="space-y-2.5 my-auto py-2">
+          <!-- 场景 1 -->
+          <div class="bg-white border border-zinc-200 rounded-xl p-3 shadow-xs">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-bold text-sm text-zinc-950 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                押金克扣与退房定损 (4,670 篇 · 占 66.8%)
+              </span>
+              <span class="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 tabular-nums">支持率 96.0%</span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-zinc-600">
+              <span class="text-zinc-500">平均判赔实现率：<strong class="font-mono text-zinc-900 text-sm">65.61%</strong></span>
+              <span class="text-zinc-700 font-medium">房东无发票克扣必判全退；有损耗按折旧扣减</span>
+            </div>
+          </div>
+
+          <!-- 场景 2 -->
+          <div class="bg-white border border-zinc-200 rounded-xl p-3 shadow-xs">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-bold text-sm text-zinc-950 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                提前退租违约金折算 (2,435 篇 · 占 34.8%)
+              </span>
+              <span class="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 tabular-nums">调减率 48.1%</span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-zinc-600">
+              <span class="text-zinc-500">平均判赔实现率：<strong class="font-mono text-zinc-900 text-sm">61.52%</strong></span>
+              <span class="text-zinc-700 font-medium">按实际空置期合理折算！2-3个月违约金常降为1个月</span>
+            </div>
+          </div>
+
+          <!-- 场景 3 -->
+          <div class="bg-white border border-zinc-200 rounded-xl p-3 shadow-xs">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-bold text-sm text-zinc-950 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                二房东跑路与清退 (4,267 篇 · 占 61.0%)
+              </span>
+              <span class="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 tabular-nums">支持率 93.6%</span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-zinc-600">
+              <span class="text-zinc-500">平均判赔实现率：<strong class="font-mono text-zinc-900 text-sm">66.00%</strong></span>
+              <span class="text-zinc-700 font-medium">房东私自断水电强换锁属过当，租金必遭酌减</span>
+            </div>
+          </div>
+
+          <!-- 场景 4 -->
+          <div class="bg-white border border-zinc-200 rounded-xl p-3 shadow-xs">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-bold text-sm text-zinc-950 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                居住瑕疵(甲醛/漏水) (1,064 篇 · 占 15.2%)
+              </span>
+              <span class="text-xs font-mono font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200 tabular-nums">全支持仅 39.3%</span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-zinc-600">
+              <span class="text-zinc-500">平均实现率：<strong class="font-mono text-rose-600 text-sm">58.93% (全场最低)</strong></span>
+              <span class="text-zinc-700 font-medium">淘宝测醛仪0采信！必须走 CMA 机构取证</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部真实判例反差高能对比框 -->
+        <div class="bg-zinc-900 text-zinc-100 rounded-xl p-3.5 border border-zinc-800">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400 mb-1.5 border-b border-zinc-800 pb-1">
+            <span class="text-emerald-400 font-bold flex items-center gap-1">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> 浦东公开案例大盘参考 (2025)沪0115民初40189号
+            </span>
+            <span class="text-rose-400 font-bold bg-rose-950/60 px-1.5 py-0.5 rounded border border-rose-800/60">调减率 98%</span>
+          </div>
+          <div class="text-xs text-zinc-300 leading-snug">
+            <strong class="text-white">房东索赔 ¥146,750</strong> (退租后6个月双倍租金+折价) ➔ 
+            <strong class="text-emerald-400">裁判最终调减至 ¥3,000！</strong>
+            <span class="text-zinc-400 block mt-0.5 text-[11px]">案例要旨：交钥匙即阻断空置期计费，拒收空关损失自行承担；旧家电只按残值酌定。</span>
+          </div>
+        </div>
+
+        <!-- 卡片底栏标识 -->
+        <div class="flex items-center justify-between pt-3 border-t border-zinc-200 text-xs font-mono text-zinc-500">
+          <span class="text-zinc-700 font-bold">02 / 05</span>
+          <span class="tracking-widest">SHANGHAI LEASE DATA LAB</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- CARD 03: 履约判定规则 (违约金填平 vs 提灯定损判定常理) -->
+    <!-- ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-between w-[540px] px-2 mb-2 text-xs font-mono text-zinc-400">
+        <div class="flex items-center gap-1.5 text-zinc-300 font-semibold">
+          <i data-lucide="gavel" class="w-3.5 h-3.5"></i>
+          <span>CARD 03 // 履约判定常理</span>
+        </div>
+        <button onclick="downloadSingleCard('card-03', '03_提前退租与定损大盘判定常理.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
+        </button>
+      </div>
+
+      <div id="card-03" class="xhs-card-canvas bg-white text-zinc-900 border border-zinc-300 rounded-2xl p-6 shadow-2xl">
+        <!-- 顶部标题区 -->
+        <div class="border-b border-zinc-200 pb-3">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 font-medium">
+              <i data-lucide="gavel" class="w-3.5 h-3.5 text-zinc-700"></i>
+              <span>CONTRACT DISCRETION RULES</span>
+            </div>
+            <span class="text-xs font-mono text-zinc-600 bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200">合同履行与减损原则</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-zinc-950">
+            合同写“扣2个月押金”就得认栽？大盘规则这样判定
+          </h2>
+          <p class="text-xs text-zinc-500 mt-1">格式条款争议解析，实际履约中的两大底层判定常理：</p>
+        </div>
+
+        <!-- 板块 1：提前退租裁量铁律 -->
+        <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 my-auto">
+          <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-zinc-200">
+            <span class="text-sm font-bold text-zinc-950 flex items-center gap-1.5">
+              <i data-lucide="clock" class="w-4 h-4 text-blue-600"></i>
+              <span>常理一：违约金的【实际空置期填平原则】</span>
+            </span>
+            <span class="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">违约金通常降为1个月</span>
+          </div>
+
+          <div class="space-y-1.5 text-xs text-zinc-700 leading-relaxed">
+            <div class="flex items-start gap-1.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+              <span><strong class="text-zinc-950">出租方负有合理减损义务：</strong>租客腾房留置钥匙，出租方应积极转租。赌气拒收钥匙扩大的空置损失，实践中多认定为自行扩损，由出租方自担。</span>
+            </div>
+            <div class="flex items-start gap-1.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+              <span><strong class="text-zinc-950">违约金大盘调减规律：</strong>上海住宅正常转租期通常在 15~30 天。约定的 2~3 个月违约金多因过分高于实际损失，大盘普遍合理调减至 1 个月左右。</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 板块 2：退房提灯定损反杀铁律 -->
+        <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 my-auto">
+          <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-zinc-200">
+            <span class="text-sm font-bold text-zinc-950 flex items-center gap-1.5">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-amber-600"></i>
+              <span>常理二：提灯定损的【自然损耗 vs 人为损坏】</span>
+            </span>
+            <span class="text-xs font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">谁主张谁举证</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs mb-2">
+            <!-- 属于自然损耗：房东自担 -->
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-300">
+              <div class="font-bold text-emerald-700 flex items-center gap-1 mb-1 text-xs">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i>
+                <span>自然损耗 (出租方自担·不得扣押)</span>
+              </div>
+              <ul class="space-y-1 text-zinc-600 text-[11px] list-disc list-inside">
+                <li>墙面正常泛黄、轻微浮灰</li>
+                <li>上海气候致墙角自然受潮发霉</li>
+                <li>地板桌面家具正常居住磨损</li>
+                <li>老旧家电自然老化故障</li>
+              </ul>
+            </div>
+
+            <!-- 属于人为损坏：须凭发票扣折旧 -->
+            <div class="bg-white p-2.5 rounded-lg border border-rose-300">
+              <div class="font-bold text-rose-700 flex items-center gap-1 mb-1 text-xs">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-rose-600"></i>
+                <span>人为损坏 (须扣除折旧赔残值)</span>
+              </div>
+              <ul class="space-y-1 text-zinc-600 text-[11px] list-disc list-inside">
+                <li>儿童大面积水彩涂鸦破坏</li>
+                <li>宠物撕咬致沙发皮面彻底破烂</li>
+                <li>硬物砸碎地砖或大面积烫灼</li>
+                <li><strong class="text-rose-600">必须扣除已使用年限折旧！</strong></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 判定共识提示 -->
+          <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-xs text-emerald-900 font-medium">
+            <strong>判定共识：</strong>出租方无入住交房视频 + 无实际维修增值税发票 = 推定为正常自然损耗，租客押金主张基本全额成立！
+          </div>
+        </div>
+
+        <!-- 卡片底栏标识 -->
+        <div class="flex items-center justify-between pt-3 border-t border-zinc-200 text-xs font-mono text-zinc-500">
+          <span class="text-zinc-700 font-bold">03 / 05</span>
+          <span class="tracking-widest">SHANGHAI LEASE DATA LAB</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- CARD 04: 生死胜负手 (证据红黑榜对比卡) -->
+    <!-- ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-between w-[540px] px-2 mb-2 text-xs font-mono text-zinc-400">
+        <div class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+          <span>CARD 04 // 证据红黑榜</span>
+        </div>
+        <button onclick="downloadSingleCard('card-04', '04_交接有效留痕与履约误区.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
+        </button>
+      </div>
+
+      <div id="card-04" class="xhs-card-canvas bg-[#09090B] text-zinc-100 border border-zinc-800 rounded-2xl p-6 shadow-2xl">
+        <!-- 顶部标题区 -->
+        <div class="border-b border-zinc-800 pb-3">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 font-medium">
+              <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>RETENTION BENCHMARK</span>
+            </div>
+            <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">交接履约避坑要点</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-white">
+            退房交接留痕：3 个关键有效凭据 vs 3 个常见履约误区
+          </h2>
+          <p class="text-xs text-zinc-400 mt-1">租房交接保护权益，最核心的关键往往只是一段视频留痕：</p>
+        </div>
+
+        <!-- 上半区：有效留痕 (大字要点) -->
+        <div class="bg-emerald-500/5 border border-emerald-500/30 rounded-xl p-3.5 my-auto">
+          <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-emerald-500/20">
+            <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+              <span>有效留痕：公认具有高度证明力的交接凭据</span>
+            </span>
+            <span class="text-[11px] font-mono text-emerald-300 font-bold">关键凭证</span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="flex items-start gap-2">
+              <span class="font-mono text-emerald-400 font-bold text-sm">01</span>
+              <div>
+                <strong class="text-white text-[13px]">入住首日 360° 高清全景视频 + 设备清单：</strong>
+                <span class="text-zinc-400 block mt-0.5">进门先录像，锁定墙面发黄、原有划痕和家电通电状况，微信发给房东留痕，封死退房扣款借口。</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-mono text-emerald-400 font-bold text-sm">02</span>
+              <div>
+                <strong class="text-white text-[13px]">书面解约通知 + 存证还匙视频 (微信/EMS)：</strong>
+                <span class="text-zinc-400 block mt-0.5">腾房后钥匙放门缝/物业并录像发群，或 EMS 寄送房东，此凭证直接作为确定解约腾退的关键时间节点，阻断空关费计费！</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-mono text-emerald-400 font-bold text-sm">03</span>
+              <div>
+                <strong class="text-white text-[13px]">具备 CMA 资质标识的第三方检验报告：</strong>
+                <span class="text-zinc-400 block mt-0.5">甲醛超标或漏水，委托带 CMA 认证机构检测并全程封闭录像，证明力极强，支持退还押金及检测费用。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 下半区：避坑预警 (大字要点) -->
+        <div class="bg-rose-500/5 border border-rose-500/30 rounded-xl p-3.5 my-auto">
+          <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-rose-500/20">
+            <span class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
+              <i data-lucide="alert-octagon" class="w-4 h-4"></i>
+              <span>踩坑预警：极易被忽略的 3 大无效留痕误区</span>
+            </span>
+            <span class="text-[11px] font-mono text-rose-400 font-bold">缺乏证明力</span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="flex items-start gap-2">
+              <span class="font-mono text-rose-400 font-bold text-sm">01</span>
+              <div>
+                <strong class="text-white text-[13px]">淘宝自购百元手持测醛仪 / 比色试纸：</strong>
+                <span class="text-zinc-400 block mt-0.5">证明力极弱！无国家计量认证，难以作为有效空气质量依据，易被认定单方违约。</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-mono text-rose-400 font-bold text-sm">02</span>
+              <div>
+                <strong class="text-white text-[13px]">赌气搬离，未交还钥匙、未留交接存证：</strong>
+                <span class="text-zinc-400 block mt-0.5">以为人走就解约。未交钥匙在实践中视同继续占用房屋，极易承担搬离后的房屋占有使用费损失！</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-mono text-rose-400 font-bold text-sm">03</span>
+              <div>
+                <strong class="text-white text-[13px]">口头协议转租/提前退租，无字据无录音：</strong>
+                <span class="text-zinc-400 block mt-0.5">房东答应“找到下家退钱”，事后矢口否认。缺乏书面凭据极易承担全部损失。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片底栏标识 -->
+        <div class="flex items-center justify-between pt-3 border-t border-zinc-800 text-xs font-mono text-zinc-500">
+          <span class="text-zinc-400 font-bold">04 / 05</span>
+          <span class="tracking-widest">SHANGHAI LEASE DATA LAB</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- CARD 05: 签约避坑条款 + 避坑经验交流 -->
+    <!-- ========================================== -->
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-between w-[540px] px-2 mb-2 text-xs font-mono text-zinc-400">
+        <div class="flex items-center gap-1.5 text-zinc-300 font-semibold">
+          <i data-lucide="bookmark-check" class="w-3.5 h-3.5"></i>
+          <span>CARD 05 // 签约保命作业</span>
+        </div>
+        <button onclick="downloadSingleCard('card-05', '05_租房补充协议3条黄金条款.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
+        </button>
+      </div>
+
+      <div id="card-05" class="xhs-card-canvas bg-[#FAFAFA] text-zinc-900 border border-zinc-300 rounded-2xl p-6 shadow-2xl">
+        <!-- 顶部标题区 -->
+        <div class="border-b border-zinc-200 pb-3">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 font-medium">
+              <i data-lucide="shield" class="w-3.5 h-3.5 text-zinc-700"></i>
+              <span>PREVENTIVE CONTRACT CLAUSES</span>
+            </div>
+            <span class="text-xs font-mono text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-bold">防患于未然</span>
+          </div>
+          <h2 class="text-2xl font-black tracking-tight text-zinc-950">
+            签租房合同前，把这 3 句话写进补充协议
+          </h2>
+          <p class="text-xs text-zinc-500 mt-1">中介模版几乎全向房东倾斜，签约前加上这 3 条直接立于不败之地：</p>
+        </div>
+
+        <!-- 中部 3 条黄金补充条款 (清爽大字卡，可直接照抄) -->
+        <div class="space-y-3 my-auto py-1">
+          <!-- 条款 1 -->
+          <div class="bg-white border border-zinc-200 rounded-xl p-3 shadow-xs">
+            <div class="flex items-center justify-between text-xs font-bold text-zinc-950 mb-1">
+              <span class="flex items-center gap-1.5 text-emerald-800 text-sm">
+                <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i>
+                <span>条款一：自然损耗免责与保洁约定</span>
+              </span>
+              <span class="text-xs font-mono text-zinc-400 font-normal">防提灯定损</span>
+            </div>
+            <p class="text-xs font-mono text-zinc-800 leading-relaxed bg-zinc-50 p-2.5 rounded-lg border border-zinc-200 select-all">
+              “房屋及附属设施因正常居住使用老化、气候潮湿发霉或自然损耗，承租人免除赔偿责任；退租保持基本整洁即可，出租人不得克扣保洁费或索赔翻新费。”
+            </p>
+          </div>
+
+          <!-- 条款 2 -->
+          <div class="bg-white border border-zinc-200 rounded-xl p-3 shadow-xs">
+            <div class="flex items-center justify-between text-xs font-bold text-zinc-950 mb-1">
+              <span class="flex items-center gap-1.5 text-emerald-800 text-sm">
+                <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i>
+                <span>条款二：提前退租违约金上限封顶</span>
+              </span>
+              <span class="text-xs font-mono text-zinc-400 font-normal">防无底线扣款</span>
+            </div>
+            <p class="text-xs font-mono text-zinc-800 leading-relaxed bg-zinc-50 p-2.5 rounded-lg border border-zinc-200 select-all">
+              “承租人提前 30 日书面通知出租人或推荐新租客接替的，违约金上限不超过 1 个月租金；出租人结清租金水电后 3 日内全额退还押金，不得追加索赔。”
+            </p>
+          </div>
+
+          <!-- 条款 3 -->
+          <div class="bg-white border border-zinc-200 rounded-xl p-3 shadow-xs">
+            <div class="flex items-center justify-between text-xs font-bold text-zinc-950 mb-1">
+              <span class="flex items-center gap-1.5 text-emerald-800 text-sm">
+                <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i>
+                <span>条款三：真实产权与非群租担保</span>
+              </span>
+              <span class="text-xs font-mono text-zinc-400 font-normal">防二房东暴雷</span>
+            </div>
+            <p class="text-xs font-mono text-zinc-800 leading-relaxed bg-zinc-50 p-2.5 rounded-lg border border-zinc-200 select-all">
+              “出租人保证具备完整出租权且房屋非违规群租隔断；若因产权争议、行政拆除或空气质量超标导致无法正常居住，出租人全额退还押金并赔偿 1 个月租金。”
+            </p>
+          </div>
+        </div>
+
+        <!-- 底部小红书互动引流 Callout (极客质感黑金卡，合规经验交流) -->
+        <div class="bg-zinc-950 text-zinc-100 border border-zinc-800 rounded-xl p-3.5 shadow-md">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-400">
+              <i data-lucide="message-square" class="w-4 h-4"></i>
+              <span>【上海租房避坑经验交流】</span>
+            </div>
+            <span class="text-[11px] font-mono text-zinc-300 bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700">经验交流</span>
+          </div>
+          <p class="text-xs text-zinc-300 leading-relaxed font-sans">
+            全量公开案例数据已清洗整理，仅作租房签约防坑与维护合法权益的经验参考。你在上海租房时还遇到过哪些押金或交接扯皮？欢迎在评论区留言交流避坑经验！
+          </p>
+        </div>
+
+        <!-- 卡片底栏标识 -->
+        <div class="flex items-center justify-between pt-3 border-t border-zinc-200 text-xs font-mono text-zinc-500">
+          <span class="text-zinc-700 font-bold">05 / 05</span>
+          <span class="tracking-widest">SHANGHAI LEASE DATA LAB</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 py-6 text-center text-xs text-zinc-500 font-mono">
+    SHANGHAI RENTAL MARKET DATA LAB // 6,995 CASES EMPIRICAL STUDY // COMPLIANCE V2.1
+  </footer>
+
+  <!-- 导出交互逻辑脚本 (直接下载 Chromium 原生 1080x1440 真实像素超清卡片，彻底告别 html2canvas 丢字排版错位) -->
+  <script>
+    // 初始化 Lucide 图标
+    lucide.createIcons();
+
+    const statusBadge = document.getElementById('statusBadge');
+    const statusText = document.getElementById('statusText');
+
+    const CARDS_MAP = [
+      { id: 'card-01', filename: '01_封面海报_看完7000份判决再吵架.png' },
+      { id: 'card-02', filename: '02_四大高频纠纷支持率与金额调减.png' },
+      { id: 'card-03', filename: '03_提前退租与定损大盘判定常理.png' },
+      { id: 'card-04', filename: '04_交接有效留痕与履约误区.png' },
+      { id: 'card-05', filename: '05_租房补充协议3条黄金条款.png' }
+    ];
+
+    // 单张卡片导出：直接下载 Chromium 原生渲染的 1080x1440 像素级完美图片
+    function downloadSingleCard(elementId, filename) {
+      statusBadge.classList.remove('hidden');
+      statusText.innerText = `正在下载高清原生图: ${filename}...`;
+
+      const link = document.createElement('a');
+      link.href = '/data/xhs_exported_cards/' + encodeURIComponent(filename);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      statusText.innerText = `已下载: ${filename}`;
+      setTimeout(() => {
+        statusBadge.classList.add('hidden');
+      }, 2000);
+    }
+
+    // 一键批量打包下载全部 5 张卡片
+    async function downloadAllCards() {
+      statusBadge.classList.remove('hidden');
+
+      for (let i = 0; i < CARDS_MAP.length; i++) {
+        const item = CARDS_MAP[i];
+        statusText.innerText = `正在下载 [${i + 1}/${CARDS_MAP.length}]: ${item.filename}...`;
+        
+        const link = document.createElement('a');
+        link.href = '/data/xhs_exported_cards/' + encodeURIComponent(item.filename);
+        link.download = item.filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // 适当延时避免部分浏览器批量下载拦截
+        await new Promise(r => setTimeout(r, 600));
+      }
+
+      statusText.innerText = `全部 5 张 1080×1440 高清卡片下载完成！`;
+      setTimeout(() => {
+        statusBadge.classList.add('hidden');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

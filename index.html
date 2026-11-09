@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上海房产司法维权精算仪 & 避坑决策指南 (基于 13,057 起真实判例)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          boxShadow: { 'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .smooth-transition { transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans antialiased transition-colors duration-200">
+
+  <!-- 顶部轻奢导航栏 -->
+  <header class="sticky top-0 z-30 bg-white/95 dark:bg-[#111827]/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 h-14 flex items-center justify-between shadow-xs">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 dark:bg-blue-500 flex items-center justify-center text-white shadow-xs">
+        <i data-lucide="scale" class="w-4 h-4"></i>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-sm tracking-tight text-slate-900 dark:text-white">上海房产纠纷司法精算仪</span>
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 font-medium">开源版·基于1.3万篇全量实判</span>
+      </div>
+    </div>
+
+    <!-- 中间 C 端四大核心身份切换器 -->
+    <div class="hidden md:flex items-center bg-slate-100 dark:bg-slate-800/80 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium">
+      <button onclick="setRole('tenant')" id="btn-role-tenant" class="role-btn px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs">
+        <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400"></i>
+        <span>我是租客 (退押金/维权)</span>
+      </button>
+      <button onclick="setRole('buyer')" id="btn-role-buyer" class="role-btn px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+        <i data-lucide="home" class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400"></i>
+        <span>我是买房人 (保定金/索赔)</span>
+      </button>
+      <button onclick="setRole('landlord')" id="btn-role-landlord" class="role-btn px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+        <i data-lucide="key" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i>
+        <span>我是房东 (合法清退/定损)</span>
+      </button>
+      <button onclick="setRole('seller')" id="btn-role-seller" class="role-btn px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+        <i data-lucide="building-2" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
+        <span>我是卖房业主 (催尾款/免责)</span>
+      </button>
+    </div>
+
+    <!-- 右侧 GitHub 链接与主题切换 -->
+    <div class="flex items-center gap-2.5">
+      <a href="https://github.com" target="_blank" class="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5 shadow-xs">
+        <i data-lucide="github" class="w-3.5 h-3.5"></i>
+        <span class="hidden sm:inline">Star on GitHub</span>
+      </a>
+      <button onclick="toggleDarkMode()" class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition" title="切换浅色/深色模式">
+        <i data-lucide="sun" id="theme-icon" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- 主容器 -->
+  <main class="flex-1 max-w-[1520px] w-full mx-auto p-4 lg:p-6 space-y-6">
+
+    <!-- 核心模块 1: “值不值得打官司？” 8 大高频场景司法精算仪 (基于全量 1.3 万篇实判模型) -->
+    <section class="space-y-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
+        <div>
+          <h2 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+            <i data-lucide="calculator" class="w-4 h-4 text-blue-600"></i>
+            <span>“值不值得打官司？” 司法胜率与判赔精算仪</span>
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            点击选择您面临的具体痛点场景，大盘指标直接基于上海各法院 <strong class="font-mono text-slate-700 dark:text-slate-200">13,049 篇</strong> 真实判决全量精算：
+          </p>
+        </div>
+        <div class="text-[11px] font-mono text-slate-400 shrink-0">
+          数据模型更新: <span id="stat-update-date">2026-11</span>
+        </div>
+      </div>
+
+      <!-- 8 大高频场景胶囊选择条 -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2" id="scenarios-bar"></div>
+
+      <!-- 4 张 Bento Grid 司法精算大盘卡片 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+        
+        <!-- 卡片 A: 同类判例总数 -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <span>上海法院同类判例总数</span>
+            <i data-lucide="database" class="w-4 h-4 text-blue-500"></i>
+          </div>
+          <div class="my-2">
+            <div class="text-3xl font-extrabold font-mono tabular-nums text-slate-900 dark:text-white" id="bento-total-cases">-</div>
+          </div>
+          <div class="text-[11px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2 flex justify-between">
+            <span id="bento-scenario-desc">当前场景司法实践规模</span>
+            <span class="text-blue-600 dark:text-blue-400 font-semibold">100%全量库</span>
+          </div>
+        </div>
+
+        <!-- 卡片 B: 原告胜诉/获赔率 -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <span>起诉胜诉获赔概率</span>
+            <i data-lucide="trending-up" class="w-4 h-4 text-emerald-500"></i>
+          </div>
+          <div class="my-2">
+            <div class="text-3xl font-extrabold font-mono tabular-nums text-emerald-600 dark:text-emerald-400" id="bento-win-pct">-%</div>
+          </div>
+          <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2 flex items-center justify-between">
+            <span>全额支持: <b id="bento-granted-pct" class="text-slate-700 dark:text-slate-300">-</b></span>
+            <span>部分支持: <b id="bento-partial-pct" class="text-slate-700 dark:text-slate-300">-</b></span>
+            <span>驳回: <b id="bento-deny-pct" class="text-rose-500">-</b></span>
+          </div>
+        </div>
+
+        <!-- 卡片 C: 诉请金额平均实现率 (打折率) -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <span>诉请金额平均司法打折率</span>
+            <i data-lucide="percent" class="w-4 h-4 text-amber-500"></i>
+          </div>
+          <div class="my-2">
+            <div class="text-3xl font-extrabold font-mono tabular-nums text-amber-600 dark:text-amber-400" id="bento-realization-rate">-%</div>
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2 leading-relaxed">
+            <span id="bento-calc-prompt">若索赔 10,000 元，法院平均实判支持约 - 元。</span>
+          </div>
+        </div>
+
+        <!-- 卡片 D: 核心胜负风向标 -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <span>法官裁判风向标</span>
+            <i data-lucide="compass" class="w-4 h-4 text-indigo-500"></i>
+          </div>
+          <div class="space-y-1.5 my-1 text-xs" id="bento-top-evidences">
+            <!-- 动态注入 Top 证据与陷阱 -->
+          </div>
+          <div class="text-[10px] text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5">
+            下方案例库可查阅对应真实司法拆解与证据留存
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 核心模块 3: 全量 13,057 小区级数据库“私域代查引流栏” (Open-Core 钩子) -->
+    <section class="bg-white dark:bg-[#111827] border border-blue-200 dark:border-blue-900/60 rounded-xl p-4 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-start gap-3">
+        <div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5">
+          <i data-lucide="shield-alert" class="w-5 h-5"></i>
+        </div>
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <h3 class="text-xs font-bold text-slate-900 dark:text-white">全上海目标小区精准司法背调 & 避坑代查服务</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-semibold">Open-Core 私域通道</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl">
+            本开源页面内置了全上海 <strong class="font-mono text-slate-800 dark:text-slate-200">13,049 篇</strong> 真实判例的完整统计精算模型及 <strong class="font-mono text-slate-800 dark:text-slate-200">300 篇</strong> 经典脱敏案例。为保护业主与租客隐私并防范爬虫黑产滥用，涵盖川沙、张江、三林、世博等上千个具体小区的历史漏水/群租清退/二房东暴雷/买卖违约底层索引仅在作者本地环境维护。若您正在上海签约，希望<strong>免费核查目标小区历史纠纷</strong>或索取<strong>《上海租房/买房自保补充协议》</strong>，欢迎交流。
+          </p>
+        </div>
+      </div>
+      <div class="shrink-0 flex items-center gap-2 self-end md:self-center">
+        <a href="#about-author" onclick="showContactModal()" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition shadow-xs flex items-center gap-1.5">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>免费申请小区代查</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 核心模块 2: 300 篇经典判例检索与“保命条款复制”抽屉 (双栏无缝联动) -->
+    <section class="space-y-3">
+      
+      <!-- 搜索过滤条 -->
+      <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-xs flex flex-wrap gap-2.5 items-center justify-between">
+        <div class="flex flex-1 min-w-[260px] items-center gap-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-750 rounded-lg px-3 py-1.5">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 shrink-0"></i>
+          <input type="text" id="input-search" placeholder="在 300 篇经典判例中检索 (如: 川沙、张江、甲醛、二房东、双倍定金、户口...)" class="bg-transparent text-xs w-full focus:outline-none placeholder-slate-400 text-slate-800 dark:text-slate-200" oninput="debounceSearch()">
+          <button onclick="clearSearch()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- 区域辖区筛选 -->
+          <select id="select-court" onchange="applyFilters()" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs rounded-lg px-3 py-1.5 text-slate-700 dark:text-slate-300 focus:outline-none font-mono">
+            <option value="">全上海 16 区法院</option>
+            <option value="浦东">浦东新区法院</option>
+            <option value="徐汇">徐汇区法院</option>
+            <option value="松江">松江区法院</option>
+            <option value="闵行">闵行区法院</option>
+            <option value="青浦">青浦区法院</option>
+            <option value="静安">静安区法院</option>
+            <option value="宝山">宝山区法院</option>
+            <option value="嘉定">嘉定区法院</option>
+            <option value="长宁">长宁区法院</option>
+            <option value="普陀">普陀区法院</option>
+            <option value="黄浦">黄浦区法院</option>
+            <option value="奉贤">奉贤区法院</option>
+            <option value="虹口">虹口区法院</option>
+            <option value="杨浦">杨浦区法院</option>
+            <option value="金山">金山区法院</option>
+            <option value="崇明">崇明区法院</option>
+          </select>
+
+          <!-- 判项结果筛选 -->
+          <select id="select-verdict" onchange="applyFilters()" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs rounded-lg px-3 py-1.5 text-slate-700 dark:text-slate-300 focus:outline-none font-mono">
+            <option value="ALL">全部判决结果</option>
+            <option value="GRANTED">全额胜诉 (全部支持)</option>
+            <option value="PARTIAL">部分支持 (司法折损)</option>
+            <option value="ALL_DENY">惨烈败诉 (全部驳回)</option>
+          </select>
+
+          <a href="sample_300_cases.json" download class="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition text-xs font-mono flex items-center gap-1.5 shadow-xs" title="下载 300 篇脱敏经典判例 JSON 数据包">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>下载脱敏 JSON</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 案例列表与右侧详情展开双栏布局 -->
+      <div id="split-layout" class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        <!-- 左栏: 判例列表 -->
+        <div id="left-pane" class="lg:col-span-12 space-y-3 smooth-transition">
+          <div class="flex items-center justify-between text-xs text-slate-500 px-1">
+            <div>
+              <span>精选库匹配: </span>
+              <span class="font-mono tabular-nums font-bold text-slate-900 dark:text-white" id="list-total-count">0</span>
+              <span> 篇典型脱敏文书 (第 </span>
+              <span class="font-mono tabular-nums font-semibold" id="list-page-num">1</span>
+              <span> 页)</span>
+            </div>
+            <div class="text-[11px] text-slate-400 flex items-center gap-1">
+              <i data-lucide="mouse-pointer-click" class="w-3.5 h-3.5"></i>
+              <span>点击任意案例展开右侧司法深度拆解与防坑条款</span>
+            </div>
+          </div>
+
+          <div id="cases-container" class="space-y-2.5"></div>
+
+          <!-- 分页器 -->
+          <div class="flex items-center justify-between pt-2 px-1 text-xs text-slate-500">
+            <button onclick="changePage(-1)" id="btn-prev-page" class="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] disabled:opacity-40 hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-xs">上一页</button>
+            <span class="font-mono tabular-nums" id="page-display">1 / 1</span>
+            <button onclick="changePage(1)" id="btn-next-page" class="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] disabled:opacity-40 hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-xs">下一页</button>
+          </div>
+        </div>
+
+        <!-- 右栏: 案件深度拆解与保命条款 (Sticky 贴屏滚动) -->
+        <div id="right-pane" class="hidden lg:col-span-7 sticky top-16 self-start bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xs overflow-hidden flex flex-col max-h-[calc(100vh-4.75rem)] smooth-transition">
+          
+          <div class="p-3.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-900/70">
+            <div class="flex-1 pr-3">
+              <div class="flex items-center gap-2 mb-1">
+                <span id="dt-domain-badge" class="text-xs px-2 py-0.5 rounded-md font-mono font-medium">领域</span>
+                <span id="dt-verdict-badge"></span>
+                <span id="dt-case-id" class="text-xs font-mono text-slate-400">案号</span>
+              </div>
+              <h2 id="dt-title" class="text-sm font-bold text-slate-900 dark:text-white truncate">案例标题</h2>
+            </div>
+            <button onclick="closeDetailPane()" class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white transition" title="收起详情">
+              <i data-lucide="chevrons-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- 抽屉滚动正文 -->
+          <div class="flex-1 overflow-y-auto p-4 space-y-4 text-xs" id="detail-scroll">
+            
+            <div class="grid grid-cols-2 gap-2.5 p-3 rounded-lg bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-[11px] font-mono">
+              <div><span class="text-slate-400">审理法院:</span> <span id="dt-court" class="text-slate-800 dark:text-slate-200 font-medium">-</span></div>
+              <div><span class="text-slate-400">裁判年份:</span> <span id="dt-year" class="text-slate-800 dark:text-slate-200">-</span></div>
+              <div><span class="text-slate-400">涉案位置:</span> <span id="dt-location" class="text-slate-800 dark:text-slate-200 font-sans font-medium">-</span></div>
+              <div><span class="text-slate-400">金额打折率:</span> <span id="dt-rate" class="font-bold text-emerald-600 dark:text-emerald-400">-</span></div>
+              <div class="col-span-2"><span class="text-slate-400">合同基准:</span> <span id="dt-base-amount" class="text-slate-800 dark:text-slate-200 font-sans">-</span></div>
+              <div class="col-span-2"><span class="text-slate-400">双方角色:</span> <span id="dt-party-roles" class="text-slate-800 dark:text-slate-200 font-sans">-</span></div>
+            </div>
+
+            <!-- 诉辩 vs 实判对比 -->
+            <div class="p-3 rounded-lg border border-amber-500/25 bg-amber-500/5 space-y-1">
+              <div class="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 text-xs">
+                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                <span>起诉要多少 vs 法院实判多少 (冲突反差)</span>
+              </div>
+              <p id="dt-claim-support" class="text-slate-800 dark:text-slate-200 leading-relaxed font-sans text-xs">-</p>
+            </div>
+
+            <!-- 法官断案铁律 -->
+            <div class="p-3 rounded-lg border border-blue-500/25 bg-blue-500/5 space-y-1">
+              <div class="font-bold text-blue-700 dark:text-blue-400 flex items-center gap-1.5 text-xs">
+                <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                <span>上海法官断案铁律 (裁量尺度)</span>
+              </div>
+              <p id="dt-judge-rule" class="text-slate-800 dark:text-slate-200 leading-relaxed font-sans font-medium text-xs">-</p>
+            </div>
+
+            <!-- 证据对比 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div class="p-3 rounded-lg border border-emerald-500/25 bg-emerald-500/5 space-y-1.5">
+                <div class="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1 text-xs">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                  <span>法官采信的胜诉铁证</span>
+                </div>
+                <ul id="dt-winning-ev" class="space-y-1 text-slate-700 dark:text-slate-300 pl-3 list-disc text-[11px] leading-relaxed"></ul>
+              </div>
+
+              <div class="p-3 rounded-lg border border-rose-500/25 bg-rose-500/5 space-y-1.5">
+                <div class="font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1 text-xs">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+                  <span>败诉方踩中的致命陷阱</span>
+                </div>
+                <ul id="dt-rejected-ev" class="space-y-1 text-slate-700 dark:text-slate-300 pl-3 list-disc text-[11px] leading-relaxed"></ul>
+              </div>
+            </div>
+
+            <!-- 今晚回家立刻照做取证 SOP (带复制按钮) -->
+            <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/50 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 text-xs">
+                  <i data-lucide="clipboard-check" class="w-4 h-4 text-emerald-600"></i>
+                  <span>【行家指路】立刻照做的签约/取证自保条款</span>
+                </span>
+                <button onclick="copyActionSop()" class="px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-[11px] font-mono hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1 shadow-xs">
+                  <i data-lucide="copy" class="w-3 h-3"></i>
+                  <span>一键复制条款</span>
+                </button>
+              </div>
+              <div id="dt-actionable-sop" class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans bg-white dark:bg-[#111827] p-3 rounded-lg border border-slate-200 dark:border-slate-800 whitespace-pre-wrap"></div>
+            </div>
+
+            <!-- 普法卡片速读 -->
+            <div class="p-3 rounded-lg bg-slate-100/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-sans" id="dt-case-card"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 页脚免责与声明 -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 px-4 bg-white dark:bg-[#111827] text-xs text-slate-400 text-center font-mono">
+    <div class="max-w-5xl mx-auto space-y-2">
+      <div>基于上海法院 13,049 篇不动产真实一审裁判文书宏观精算 · 严格脱敏开源保护</div>
+      <div class="text-[11px] text-slate-400">
+        免责声明: 本看板展示数据仅用于普法研究与签约风险防范，不构成特定具体个案的正式法律意见。
+      </div>
+    </div>
+  </footer>
+
+  <!-- 私域联系与代查弹窗 -->
+  <div id="contact-modal" onclick="closeContactModal()" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-50 hidden backdrop-blur-xs flex items-center justify-center p-4">
+    <div onclick="event.stopPropagation()" class="max-w-md w-full bg-white dark:bg-[#111827] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i>
+          <span>申请目标小区司法纠纷免费代查</span>
+        </h3>
+        <button onclick="closeContactModal()" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+        如果您正在上海签约（租房/买房），告知您意向的<strong>具体小区名称（如川沙某小区、张江某国际公寓等）</strong>，我们将免费在本地 13,049 篇底层数据库中为您调取：
+      </p>
+      <ul class="text-xs text-slate-600 dark:text-slate-300 list-disc pl-4 space-y-1 font-mono">
+        <li>该小区历史是否存在二房东爆雷/群租清退记录</li>
+        <li>该小区是否有较多外墙漏水/水管反水定损索赔</li>
+        <li>定制《上海市房屋买卖/租赁防坑补充协议 3 条款》</li>
+      </ul>
+      <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-xs text-center font-mono text-slate-500">
+        通过 GitHub Issue 发起查询需求<br/>或在项目讨论区留言目标小区名
+      </div>
+      <button onclick="closeContactModal()" class="w-full py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-xs font-semibold hover:opacity-90 transition">
+        我知道了
+      </button>
+    </div>
+  </div>
+
+  <!-- 轻量 Toast 提示 -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-3.5 py-2 rounded-lg text-xs font-mono shadow-xl transition-all duration-200 opacity-0 pointer-events-none transform translate-y-2 flex items-center gap-2">
+    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-600"></i>
+    <span id="toast-msg">已复制</span>
+  </div>
+
+  <!-- 引入公共数据包与交互引擎 -->
+  <script src="public_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

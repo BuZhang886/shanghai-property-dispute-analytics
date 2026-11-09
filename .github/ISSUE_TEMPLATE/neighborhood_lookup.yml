@@ -1,0 +1,48 @@
+name: 🔍 申请目标小区司法风险背调 (免费服务)
+description: 租房或买房签约前，免费申请调取上海具体小区的历史诉讼与纠纷风险报告
+title: "[小区背调申请]: "
+labels: ["neighborhood-lookup", "community-help"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🛡️ 上海租房买房·目标小区风险背调服务
+        签约租房或买房前，提前核验目标小区是否曾发生过**“二房东暴雷强制清退”、“外墙渗水与管道返水定损争端”、“原房东拒迁户口”**等历史诉讼记录。
+        提交后，维护者将在本地全量 1.3 万篇文书大库中为您检索并在此 Issue 中回复背调结果！
+
+  - type: input
+    id: district_and_town
+    attributes:
+      label: 1. 目标小区所在行政区及板块
+      description: 例如：浦东新区张江镇、徐汇区田林、闵行区七宝等
+      placeholder: 例如：浦东新区川沙新镇
+    validations:
+      required: true
+
+  - type: input
+    id: community_name
+    attributes:
+      label: 2. 目标小区/楼盘完整名称
+      description: 请填写具体小区名称（出于隐私保护，请勿透露具体楼栋室号）
+      placeholder: 例如：川沙某某苑 / 张江某某村
+    validations:
+      required: true
+
+  - type: dropdown
+    id: transaction_type
+    attributes:
+      label: 3. 您的拟签约身份与交易类型
+      options:
+        - 租房（租客视角：重点防二房东暴雷、押金定损与水电路漏水）
+        - 买房（买家视角：重点查房屋抵押查封、凶宅重大瑕疵与户口纠纷）
+        - 房东（业主视角：合规出租、防群租与设施拆改纠纷）
+    validations:
+      required: true
+
+  - type: textarea
+    id: specific_concerns
+    attributes:
+      label: 4. 您当前最担心或希望重点排查的风险点（选填）
+      placeholder: 例如：中介催着付定金，想查一下该小区前几年有没有长租公寓或包租公司跑路封门的官司记录？
+    validations:
+      required: false
