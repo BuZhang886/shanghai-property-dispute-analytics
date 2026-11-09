@@ -99,7 +99,7 @@
           <i data-lucide="image" class="w-3.5 h-3.5"></i>
           <span>CARD 01 // 避坑大盘总览 (手机高清版)</span>
         </div>
-        <button onclick="downloadSingleCard('card-01', '01_封面海报_看完7000份判决再吵架.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+        <button onclick="downloadSingleCard('card-01', 'card_01_macro_overview.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
           <i data-lucide="download" class="w-3.5 h-3.5"></i> 保存此卡
         </button>
       </div>
@@ -206,7 +206,7 @@
           <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
           <span>CARD 02 // 真实大数据底牌</span>
         </div>
-        <button onclick="downloadSingleCard('card-02', '02_四大高频纠纷支持率与金额调减.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+        <button onclick="downloadSingleCard('card-02', 'card_02_dispute_statistics.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
           <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
         </button>
       </div>
@@ -322,7 +322,7 @@
           <i data-lucide="gavel" class="w-3.5 h-3.5"></i>
           <span>CARD 03 // 履约判定常理</span>
         </div>
-        <button onclick="downloadSingleCard('card-03', '03_提前退租与定损大盘判定常理.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+        <button onclick="downloadSingleCard('card-03', 'card_03_settlement_rules.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
           <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
         </button>
       </div>
@@ -429,7 +429,7 @@
           <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
           <span>CARD 04 // 证据红黑榜</span>
         </div>
-        <button onclick="downloadSingleCard('card-04', '04_交接有效留痕与履约误区.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+        <button onclick="downloadSingleCard('card-04', 'card_04_effective_evidence.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
           <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
         </button>
       </div>
@@ -538,7 +538,7 @@
           <i data-lucide="bookmark-check" class="w-3.5 h-3.5"></i>
           <span>CARD 05 // 签约保命作业</span>
         </div>
-        <button onclick="downloadSingleCard('card-05', '05_租房补充协议3条黄金条款.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
+        <button onclick="downloadSingleCard('card-05', 'card_05_contract_clauses.png')" class="hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors">
           <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载此卡
         </button>
       </div>
@@ -641,11 +641,11 @@
     const statusText = document.getElementById('statusText');
 
     const CARDS_MAP = [
-      { id: 'card-01', filename: '01_封面海报_看完7000份判决再吵架.png' },
-      { id: 'card-02', filename: '02_四大高频纠纷支持率与金额调减.png' },
-      { id: 'card-03', filename: '03_提前退租与定损大盘判定常理.png' },
-      { id: 'card-04', filename: '04_交接有效留痕与履约误区.png' },
-      { id: 'card-05', filename: '05_租房补充协议3条黄金条款.png' }
+      { id: 'card-01', filename: 'card_01_macro_overview.png' },
+      { id: 'card-02', filename: 'card_02_dispute_statistics.png' },
+      { id: 'card-03', filename: 'card_03_settlement_rules.png' },
+      { id: 'card-04', filename: 'card_04_effective_evidence.png' },
+      { id: 'card-05', filename: 'card_05_contract_clauses.png' }
     ];
 
     // 单张卡片导出：直接下载 Chromium 原生渲染的 1080x1440 像素级完美图片
