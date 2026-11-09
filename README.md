@@ -3,7 +3,7 @@
 > **基于上海各级法院 13,049 篇真实一审裁判文书的司法大数据精算模型与 300 篇避坑实录。**  
 > 告别中介套路与网上散乱碎片攻略，用上海法院公开裁判大盘数据，回答每一个普通租客、买房人、房东最关心的痛点：**“遇到纠纷，值不值得打官司？起诉能判赔多少？凭哪几张有效凭据能全额维护权益？”**
 
-[![GitHub Pages](https://img.shields.io/badge/Demo-在线交互精算仪-2563EB?style=flat&logo=github)](https://yourusername.github.io/shanghai-property-dispute-analytics/)
+[![GitHub Pages](https://img.shields.io/badge/Demo-在线交互精算仪-2563EB?style=flat&logo=github)](https://buzhang886.github.io/shanghai-property-dispute-analytics/)
 [![Database](https://img.shields.io/badge/数据底座-13%2C049篇真实判例-059669?style=flat)]()
 [![License](https://img.shields.io/badge/License-MIT-slate?style=flat)]()
 
